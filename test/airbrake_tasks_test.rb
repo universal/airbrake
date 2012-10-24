@@ -1,7 +1,7 @@
 require File.expand_path '../helper', __FILE__
 require 'rubygems'
 
-require File.dirname(__FILE__) + '/../lib/airbrake_tasks'
+require File.expand_path File.dirname(__FILE__) + '/../lib/airbrake_tasks'
 require 'fakeweb'
 
 FakeWeb.allow_net_connect = false
@@ -128,7 +128,7 @@ class AirbrakeTasksTest < Test::Unit::TestCase
 
     context "in a configured project with custom host" do
       setup do
-        Airbrake.configure do |config| 
+        Airbrake.configure do |config|
           config.api_key = "1234123412341234"
           config.host = "custom.host"
         end

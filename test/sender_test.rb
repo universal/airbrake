@@ -31,6 +31,19 @@ class SenderTest < Test::Unit::TestCase
     http
   end
 
+  context "url_prefix" do
+    should "post to url with prefix if set" do
+      http = stub_http
+      url_prefix = "/test_prefix"
+      url = "http://api.airbrake.io:80#{url_prefix}#{Airbrake::Sender::NOTICES_URI}"
+      uri = URI.parse(url)
+      send_exception(:url_prefix => url_prefix)
+      assert_received(http, :post) do |expect|
+        expect.with(uri.path, anything, anything)
+      end
+    end
+  end
+
   should "post to Airbrake with XML passed" do
     xml_notice = Airbrake::Notice.new(:error_class => "FooBar", :error_message => "Foo Bar").to_xml
 
@@ -284,5 +297,4 @@ class SenderTest < Test::Unit::TestCase
       assert_received(http, :read_timeout=) {|expect| expect.with(10) }
     end
   end
-
 end

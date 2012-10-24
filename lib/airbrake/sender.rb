@@ -19,6 +19,7 @@ module Airbrake
         :proxy_pass,
         :protocol,
         :host,
+        :url_prefix,
         :port,
         :secure,
         :use_system_ssl_cert_chain,
@@ -74,6 +75,7 @@ module Airbrake
                 :proxy_pass,
                 :protocol,
                 :host,
+                :url_prefix,
                 :port,
                 :secure,
                 :use_system_ssl_cert_chain,
@@ -86,7 +88,7 @@ module Airbrake
   private
 
     def url
-      URI.parse("#{protocol}://#{host}:#{port}").merge(NOTICES_URI)
+      URI.parse("#{protocol}://#{host}:#{port}").merge("#{self.url_prefix}#{NOTICES_URI}")
     end
 
     def log(opts = {})

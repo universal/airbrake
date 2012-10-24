@@ -17,6 +17,7 @@ class ConfigurationTest < Test::Unit::TestCase
     assert_config_default :notifier_url,        'https://github.com/airbrake/airbrake'
     assert_config_default :secure,              false
     assert_config_default :host,                'api.airbrake.io'
+    assert_config_default :url_prefix,          nil
     assert_config_default :http_open_timeout,   2
     assert_config_default :http_read_timeout,   5
     assert_config_default :ignore_by_filters,   []
@@ -75,6 +76,7 @@ class ConfigurationTest < Test::Unit::TestCase
     assert_config_overridable :proxy_pass
     assert_config_overridable :secure
     assert_config_overridable :host
+    assert_config_overridable :url_prefix
     assert_config_overridable :port
     assert_config_overridable :http_open_timeout
     assert_config_overridable :http_read_timeout
@@ -96,7 +98,7 @@ class ConfigurationTest < Test::Unit::TestCase
     config = Airbrake::Configuration.new
     hash = config.to_hash
     [:api_key, :backtrace_filters, :development_environments,
-     :environment_name, :host, :http_open_timeout,
+     :environment_name, :host, :url_prefix, :http_open_timeout,
      :http_read_timeout, :ignore, :ignore_by_filters, :ignore_user_agent,
      :notifier_name, :notifier_url, :notifier_version, :params_filters,
      :project_root, :port, :protocol, :proxy_host, :proxy_pass, :proxy_port,
